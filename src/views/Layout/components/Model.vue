@@ -75,6 +75,7 @@
         data() {
             return {
                 explore: '爆炸',
+                viewer3D:null,
                 visible: false,
                 name: '',
                 componentId: '',
@@ -120,6 +121,10 @@
             window.generateComponentCode = this.generateComponentCode;
             window.generateViewCode = this.generateViewCode;
             window.explosion = this.explosion;
+            window.createAnnotation = this.createAnnotation;
+            window.saveAnnotation = this.saveAnnotation;
+            window.canelAnnotation = this.canelAnnotation;
+            
             window.renew = this.renew;
         },
         methods: {
@@ -160,17 +165,93 @@
                 let cameraState = '{"fov":45,"name":"persp","position": {"x": 66906.76685739282, "y": -886292.1063309382, "z": 52240.41117403255},"target": {"x": 1003103.4289036342, "y": 37440.103794186805, "z": 42035.42054936324},"up": {"x": 0.005524956049473199, "y": 0.005447723884279932, "z": 0.9999698981295047},"version": 1,"zoom": 0}'
                 viewer3D.setCameraStatus(cameraState);
                 viewer3D.render();
-                let annotationButton = document.querySelector('.bf-toolbar-bottom .gld-bf-eye');
-                annotationButton.title = "恢复";
-                annotationButton.innerHTML = "<div onclick='renew()'>恢复</div>";
+                let annotationButton = document.querySelector('.bf-toolbar-bottom .gld-bf-renew');
+                annotationButton.style.display='inline-block';
+                let annotationButton2 = document.querySelector('.bf-toolbar-bottom .gld-bf-eye');
+                annotationButton2.style.display='none';
+                // annotationButton.innerHTML = "<div onclick='renew()'><img style='width:100%' src='http://172.16.12.51/renew.png'/></div>";
             },
             renew() {
                 viewer3D.setExplosionExtent(0);
                 viewer3D.setCameraStatus(this.cameraState);
                 viewer3D.render();
                 let annotationButton = document.querySelector('.bf-toolbar-bottom .gld-bf-eye');
-                annotationButton.title = "爆炸";
-                annotationButton.innerHTML = "<div onclick='explosion()'>爆炸</div>";
+                annotationButton.style.display='inline-block';
+                let annotationButton2 = document.querySelector('.bf-toolbar-bottom .gld-bf-renew');
+                annotationButton2.style.display='none';
+                // annotationButton.title = "爆炸";
+                // annotationButton.innerHTML = "<div onclick='explosion()'><img style='width:100%' src='http://172.16.12.51/explosion.png'/></div>";
+            },
+            canelAnnotation(){
+                this.modelViewer.annotationControl.find('input').val('');
+                //卸载批注
+                this.modelViewer.annotationmanager.endDrawing && this.modelViewer.annotationmanager.endDrawing();
+                $(this.modelViewer.annotationToolbar.domElement).addClass('bf-hide');
+                console.log(this.modelViewer.toolbar)
+                document.querySelector('.bf-toolbar-bottom').style.display='block'
+                // this.modelViewer.toolbar.display='';
+            },
+            saveAnnotation(){
+              //检查是否有批注
+              if (!this.modelViewer.annotationmanager.getAnnotationList().length) {
+                alert('批注不能为空');
+                return false;
+              }
+              //检查是否有说明
+              var textInput = $.trim(this.modelViewer.annotationControl.find('input').val());
+              if (!textInput) {
+                alert('批注描述不能为空');
+                return false;
+              }
+              // 批注导出快照
+              this.modelViewer.annotationmanager.createSnapshot(function (img) {
+                // var image = new Image();
+                // image.src = img;
+                // console.log(img)
+                // document.body.appendChild(image);
+                let cameraState = viewer3D.getCameraStatus();
+                console.log(cameraState);
+                var a = document.createElement('a')
+                a.download = textInput
+                // 设置图片地址
+                a.href = img;
+                a.click();
+
+              });
+              this.canelAnnotation();
+            },
+            createAnnotation(){
+              let viewer = viewer3D
+              this.modelViewer.toolbar.style.display='none'
+              console.log(this.modelViewer.toolbar)
+              // document.querySelector('.bf-toolbar-bottom').style.display='none'
+              // console.log(this.modelViewer)
+              // console.log(document.querySelector('.bf-toolbar-bottom').style)
+              // // this.modelViewer.toolbar.hide();
+              if (!this.modelViewer.annotationmanager) {
+                var config = new Glodon.Bimface.Plugins.Annotation.AnnotationToolbarConfig();
+                config.viewer = viewer;
+                var annotationToolbar = new Glodon.Bimface.Plugins.Annotation.AnnotationToolbar(config);
+                this.modelViewer.annotationToolbar = annotationToolbar;
+                this.modelViewer.annotationmanager = annotationToolbar.getAnnotationManager();
+                // 移除默认的annotationToolbar control
+                var control = $(this.modelViewer.annotationToolbar.domElement.lastElementChild);
+                var html = control[0].innerHTML;
+                html = '<div class="bf-toolbar bf-toolbar-control">' +
+                  '<input class="txtInput" placeholder="请输入批注描述" maxlength="30">' +
+                  html + '</div>';
+                this.modelViewer.annotationControl = $(html);
+                this.modelViewer.annotationControl.insertAfter(control);
+                control.remove();
+                let that = this
+                this.modelViewer.annotationControl.find('.bf-save').off('click').on('click', function () {
+                  that.saveAnnotation();
+                });
+                this.modelViewer.annotationControl.find('.bf-cancel').off('click').on('click', function () {
+                  that.canelAnnotation();
+                });
+              }
+              this.modelViewer.annotationToolbar.show();
             },
             successCallback(viewMetaData) {
                 if (viewMetaData.viewType == "3DView") {
@@ -204,9 +285,28 @@
                         annotationButton.title = "爆炸";
                         // annotationButton.title = "视点分享";
                         annotationButton.className = "bf-button gld-bf-eye";
-                        annotationButton.innerHTML = "<div onclick='explosion()'>爆炸</div>";
+                        annotationButton.innerHTML = "<div onclick='explosion()'><img style='width:100%' src='http://172.16.12.51/explosion.png'/></div>";
                         // annotationButton.innerHTML = "<div onclick='generateViewCode()'>视点</div>";
                         document.querySelector('.bf-toolbar-bottom').appendChild(annotationButton);
+
+                        let annotationButton3 = document.createElement('div');
+                        // let annotationButton3 = document.querySelector('.bf-toolbar-bottom .gld-bf-renew');
+                        annotationButton3.title = "恢复";
+                        annotationButton3.className = "bf-button gld-bf-renew";
+                        annotationButton3.innerHTML = "<div onclick='renew()'><img style='width:100%' src='http://172.16.12.51/renew.png'/></div>";
+                        document.querySelector('.bf-toolbar-bottom').appendChild(annotationButton3);
+                        annotationButton3.style.display='none'
+
+                        let annotationButton2 = document.createElement('div');
+                        annotationButton2.title = "批注";
+                        // annotationButton.title = "视点分享";
+                        annotationButton2.className = "gld-bf-comment";
+                        // annotationButton2.innerHTML = "<div onclick='createAnnotation()'>批注</div>";
+                        annotationButton2.innerHTML = "<div onclick='createAnnotation()'><img style='width:100%' src='http://172.16.12.51/comment.png'/></div>";
+                        // annotationButton2.style.background="url('../../../assets/imgs/comment.png')"
+                        // console.log(annotationButton2)
+                        document.querySelector('.bf-toolbar-bottom').appendChild(annotationButton2);
+
                         //设置摄像机视角
                         viewer3D.setCameraStatus(this.cameraState);
                         viewer3D.setRotationCenter(Glodon.Web.Geometry.Point3d(
@@ -348,7 +448,29 @@
     margin-right: 0;
     margin-left: 1vw;
   }
-  
+  /deep/ .gld-bf-comment{
+    width:55px;
+    height:55px;
+    line-height:40px;
+    display: inline-block;
+    padding:0 10px;
+  }
+  /deep/ .gld-bf-eye{
+    width:55px;
+    height:55px;
+    line-height:40px;
+    display: inline-block;
+    padding:0 10px;
+  }
+
+  /deep/ .gld-bf-renew{
+    width:55px;
+    height:55px;
+    line-height:40px;
+    display: inline-block;
+    padding:0 10px;
+  }
+
   /deep/ .bf-panel.bf-has-title.bf-sizable.property-panel.bf-property-panel {
     top: 10vh !important;
   }

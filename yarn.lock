@@ -3257,6 +3257,13 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+dingtalk-jsapi@^2.12.2:
+  version "2.13.7"
+  resolved "https://registry.npm.taobao.org/dingtalk-jsapi/download/dingtalk-jsapi-2.13.7.tgz?cache=0&sync_timestamp=1603247662697&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdingtalk-jsapi%2Fdownload%2Fdingtalk-jsapi-2.13.7.tgz#89d7ca2a9ca587a3f11a77ee14f669e976028877"
+  integrity sha1-idfKKpylh6PxGnfuFPZp6XYCiHc=
+  dependencies:
+    promise-polyfill "^7.1.0"
+
 dir-glob@^2.0.0, dir-glob@^2.2.2:
   version "2.2.2"
   resolved "https://registry.npm.taobao.org/dir-glob/download/dir-glob-2.2.2.tgz#fa09f0694153c8918b18ba0deafae94769fc50c4"
@@ -6365,6 +6372,11 @@ pdfjs-dist@^2.5.207:
   resolved "https://registry.npm.taobao.org/pdfjs-dist/download/pdfjs-dist-2.6.347.tgz#f257ed66e83be900cd0fd28524a2187fb9e25cd5"
   integrity sha1-8lftZug76QDND9KFJKIYf7niXNU=
 
+pdfobject@^2.1.1:
+  version "2.2.4"
+  resolved "https://registry.npm.taobao.org/pdfobject/download/pdfobject-2.2.4.tgz#ccb3c191129298a471e9ccb59c88a3ee0b7c7530"
+  integrity sha1-zLPBkRKSmKRx6cy1nIij7gt8dTA=
+
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/performance-now/download/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
@@ -6828,6 +6840,11 @@ promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/promise-inflight/download/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
   integrity sha1-mEcocL8igTL8vdhoEputEsPAKeM=
+
+promise-polyfill@^7.1.0:
+  version "7.1.2"
+  resolved "https://registry.npm.taobao.org/promise-polyfill/download/promise-polyfill-7.1.2.tgz#ab05301d8c28536301622d69227632269a70ca3b"
+  integrity sha1-qwUwHYwoU2MBYi1pInYyJppwyjs=
 
 proxy-addr@~2.0.5:
   version "2.0.6"
