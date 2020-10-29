@@ -40,3 +40,11 @@ export function getFormData(params){
     });
     return formData
 }
+export function downFile(url, parameter, method) {
+    return axios({
+        url: url,
+        params: parameter,
+        method: method,
+        responseType: 'blob'
+    })
+}

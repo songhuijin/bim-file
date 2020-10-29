@@ -11,7 +11,7 @@
       :loading="loading"
       @change="handleTableChange">
       <span slot="fileName" slot-scope="text, record">
-        <span style='color:rgb(0,109,240);cursor:pointer'>{{text}}</span>
+        <span class="btn">{{text}}</span>
       </span>
     </a-table>
   </div>

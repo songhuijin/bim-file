@@ -4,9 +4,19 @@ import LastOpen from '../views/LastOpen'
 import CAD from '../views/CAD'
 import PDF from '../views/PDF'
 import Navisworks from '../views/Navisworks'
-import Model from '../views/Layout/components/Model'
+// import Model from '../views/Layout/components/Model'
+import HomePage from '../views/pages/HomePage.vue'
 
 let initModelRoute = [
+  {
+    name: '首页',
+    path: '/page',
+    component: HomePage,
+    meta: {
+      isActive: false,
+      icon: "home"
+    }
+  },
   {
     name: '最近打开',
     path: '/last-open',

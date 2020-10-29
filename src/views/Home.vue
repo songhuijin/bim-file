@@ -3,12 +3,10 @@
     <div style="display:flex;padding:10px 15px;justify-content:space-between">
       <div style="display:flex">
         <div class="upload-btn-box">
-          <a-button icon="upload" type="primary" @click="choiceImg">模型上传</a-button>
-<!--          <a-button @click="choiceImg" style="border:1px solid #13C2C2;color:#13C2C2">选择文件</a-button>-->
+          <a-button icon="upload" class="primary-btn" @click="choiceImg">模型上传</a-button>
           <input ref="inputer" type="file" class="upload-file" @change="handleFileChange">
         </div>
-<!--        <a-button icon="upload" type="primary">模型上传</a-button>-->
-        <a-button icon="folder-add" @click="handleAdd" style="border:1px solid #1890ff;color:#1890ff;margin-left:8px">
+        <a-button icon="folder-add" @click="handleAdd" class="border-btn" style="margin-left:8px">
           新建文件夹
         </a-button>
       </div>
@@ -35,7 +33,7 @@
         @change="handleTableChange"
         :data-source="dataSource">
           <span slot="fileName" slot-scope="text,record">
-            <a @click="fileItems(record)">
+            <a @click="fileItems(record)" class="btn">
               <a-icon type="folder" v-if="record.isFile == '0'"/>
               <a-icon type="file" v-if="record.isFile == '1'"/>
               {{text}}
@@ -53,7 +51,8 @@
         </span>
       </a-table>
     </div>
-    <NewFolder ref="modalForm" @ok="modalFormOk"></NewFolder>
+    <!-- <NewFolder ref="modalForm" @ok="modalFormOk"></NewFolder> -->
+    <FileModal ref="modalForm" @ok="modalFormOk"></FileModal>
     <a-modal
       title="PDF文件预览"
       :visible="show"
@@ -69,13 +68,15 @@
 
 <script>
     import VuePdf from 'vue-pdf'
-    import NewFolder from '@/views/Layout/components/NewFolder'
+    // import NewFolder from '@/views/Layout/components/NewFolder'
+    import FileModal from '@/views/pages/components/FileModal'
     import { getAction, postAction,deleteAction,getFormData} from '@/api/manage'
     export default {
         name: "Home",
         components: {
             VuePdf,
-            NewFolder
+            // NewFolder,
+            FileModal
         },
         data() {
             return {
@@ -223,6 +224,7 @@
                 this.loadData();
             },
             handleRename(record) {
+              // console.log(record)
                 this.$refs.modalForm.title = "文件重命名";
                 this.$refs.modalForm.edit(record);
             },
@@ -243,6 +245,7 @@
               this.loadData();
             },
             handleAdd() {
+                this.$refs.modalForm.addTyle = "all";
                 this.$refs.modalForm.title = "新建文件夹";
                 this.$refs.modalForm.add(this.queryParam.pid);
             },
@@ -260,13 +263,13 @@
 </script>
 
 <style lang="less" scoped>
-  /deep/ .ant-input {
-    color: rgba(0, 0, 0, 0.65);
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #d9d9d9;
-    border-radius: 16px;
-  }
+  // /deep/ .ant-input {
+  //   color: rgba(0, 0, 0, 0.65);
+  //   background-color: #fff;
+  //   background-image: none;
+  //   border: 1px solid #d9d9d9;
+  //   border-radius: 16px;
+  // }
   
   .breadcrumbs {
     background: #fff;
@@ -278,7 +281,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    color: rgb(25, 135, 255);
+    color: rgb(26, 72, 141);
   }
 
   .upload-btn-box {

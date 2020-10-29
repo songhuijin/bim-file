@@ -11,7 +11,7 @@ module.exports = {
         proxy: {
             '/qr-code': {
                 // target: 'http://121.37.197.45:8080',  //接口域名
-                target: 'http://172.16.12.51:8080',  //接口域名
+                target: 'http://172.16.12.52:8080',  //接口域名
                 // target: 'http://172.16.174.15:8083',  //接口域名
                 ws: false,
                 changeOrigin: true,  //是否跨域
@@ -29,10 +29,10 @@ module.exports = {
             },
             '/jeecg-boot': {
                 // target: 'http://121.37.197.45:8803',  //接口域名
-                target: 'http://106.13.36.159:8081',  //接口域名
+                // target: 'http://106.13.36.159:8081',  //接口域名
                 // target: 'http://106.13.36.159:8083',  //接口域名
                 // target: 'http://172.16.174.15:8083',  //接口域名
-                // target: 'http://172.16.12.52:8080',  //接口域名
+                target: 'http://182.92.125.56:8083',  //接口域名
                 ws: false,
                 pathRewrite: { '^/jeecg-boot': '' },
                 changeOrigin: true //是否跨域

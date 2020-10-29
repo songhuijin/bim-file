@@ -2,6 +2,7 @@
   <div class="menuList">
     <a-menu style="height:100%"
             :default-selected-keys="['0']"
+            theme="dark"
             mode="inline"
             @click="handleClick"
             :inline-collapsed="collapsed">
@@ -33,6 +34,7 @@
       this.menuList.map(item => {
         if (that.$route.path.indexOf(item.path) > -1) {
           item.meta.isActive = true
+          console.log(item)
         }
       });
     },
@@ -55,6 +57,9 @@
 </script>
 
 <style scoped>
+/deep/.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background-color: #515a6e;
+}
   .menuList {
     width: 200px;
     height: calc(100% - 66px);

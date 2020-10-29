@@ -4,6 +4,9 @@
       <div class="headLeft">
         BIM文件管理
       </div>
+      <div class="headCenter">
+        CICDI智慧施工管理平台
+      </div>
       <div class="headRight">
         <a-popover trigger="hover">
           <template slot="content">
@@ -48,7 +51,9 @@
     height: 66px;
     position: absolute;
     z-index: 999;
-    background-color: rgb(0,109,240);
+    background:#001529;
+    border-bottom: 4px solid #c5c8ce;
+    // background-color: rgb(0,109,240);
     img {
       height: 32px;
       width: 32px;
@@ -66,6 +71,39 @@
     color: white;
     font-weight: 600;
     position: absolute;
+  }
+  .headCenter{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-size:24px;
+    color: white;
+    font-weight: 600;
+    position: absolute;
+    left:50%;
+    transform: translate(-50%,0);
+    background: #142135;
+    padding:0 70px;
+  }
+  .headCenter:before{
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left:0;
+    border-top: 60px solid transparent;
+    border-left: 50px solid #001529; 
+  }
+  .headCenter:after{
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    right:0;
+    border-top: 60px solid transparent;
+    border-right: 50px solid #001529; 
   }
   .headRight{
     right: 22px;
