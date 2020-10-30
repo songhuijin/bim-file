@@ -17,110 +17,110 @@ let initModelRoute = [
       icon: "home"
     }
   },
-  // {
-  //   name: '文件管理',
-  //   path: '/file-management',
-  //   // component: HomePage,
-  //   redirect: '/last-open',
-  //   meta: {
-  //     // isActive: false,
-  //     icon: "file"
-  //   },
-  //   children:[
-  //     {
-  //       name: '最近打开',
-  //       path: '/last-open',
-  //       component: LastOpen,
-  //       meta: {
-  //         isActive: false,
-  //         icon: "clock-circle"
-  //       }
-  //     },
-  //     {
-  //       name: '全部文件',
-  //       path: '/home',
-  //       component: Home,
-  //       meta: {
-  //         isActive: false,
-  //         icon: "file-text"
-  //       }
-  //     }, {
-  //       name: 'Revit',
-  //       path: '/revit',
-  //       component: Revit,
-  //       meta: {
-  //         isActive: false
-  //       }
-  //     }, {
-  //       name: 'Navisworks',
-  //       path: '/navisworks',
-  //       component: Navisworks,
-  //       meta: {
-  //         isActive: false
-  //       }
-  //     }, {
-  //       name: 'CAD',
-  //       path: '/cad',
-  //       component: CAD,
-  //       meta: {
-  //         isActive: false
-  //       }
-  //     }, {
-  //       name: 'PDF',
-  //       path: '/pdf',
-  //       component: PDF,
-  //       meta: {
-  //         isActive: false
-  //       }
-  //     }
-  //   ]
-  // },
   {
-    name: '最近打开',
-    path: '/last-open',
-    component: LastOpen,
+    name: '文件管理',
+    path: '/file-management',
+    // component: HomePage,
+    redirect: '/last-open',
     meta: {
       isActive: false,
-      icon: "clock-circle"
-    }
+      icon: "file"
+    },
+    children:[
+      {
+        name: '最近打开',
+        path: '/last-open',
+        component: LastOpen,
+        meta: {
+          isActive: false,
+          icon: "clock-circle"
+        }
+      },
+      {
+        name: '全部文件',
+        path: '/home',
+        component: Home,
+        meta: {
+          isActive: false,
+          icon: "file-text"
+        }
+      }, {
+        name: 'Revit',
+        path: '/revit',
+        component: Revit,
+        meta: {
+          isActive: false
+        }
+      }, {
+        name: 'Navisworks',
+        path: '/navisworks',
+        component: Navisworks,
+        meta: {
+          isActive: false
+        }
+      }, {
+        name: 'CAD',
+        path: '/cad',
+        component: CAD,
+        meta: {
+          isActive: false
+        }
+      }, {
+        name: 'PDF',
+        path: '/pdf',
+        component: PDF,
+        meta: {
+          isActive: false
+        }
+      }
+    ]
   },
-  {
-    name: '全部文件',
-    path: '/home',
-    component: Home,
-    meta: {
-      isActive: false,
-      icon: "file-text"
-    }
-  },{
-    name: 'Revit',
-    path: '/revit',
-    component: Revit,
-    meta: {
-      isActive: false
-    }
-  },{
-    name: 'Navisworks',
-    path: '/navisworks',
-    component: Navisworks,
-    meta: {
-      isActive: false
-    }
-  },{
-    name: 'CAD',
-    path: '/cad',
-    component: CAD,
-    meta: {
-      isActive: false
-    }
-  },{
-    name: 'PDF',
-    path: '/pdf',
-    component: PDF,
-    meta: {
-      isActive: false
-    }
-  }
+  // {
+  //   name: '最近打开',
+  //   path: '/last-open',
+  //   component: LastOpen,
+  //   meta: {
+  //     isActive: false,
+  //     icon: "clock-circle"
+  //   }
+  // },
+  // {
+  //   name: '全部文件',
+  //   path: '/home',
+  //   component: Home,
+  //   meta: {
+  //     isActive: false,
+  //     icon: "file-text"
+  //   }
+  // },{
+  //   name: 'Revit',
+  //   path: '/revit',
+  //   component: Revit,
+  //   meta: {
+  //     isActive: false
+  //   }
+  // },{
+  //   name: 'Navisworks',
+  //   path: '/navisworks',
+  //   component: Navisworks,
+  //   meta: {
+  //     isActive: false
+  //   }
+  // },{
+  //   name: 'CAD',
+  //   path: '/cad',
+  //   component: CAD,
+  //   meta: {
+  //     isActive: false
+  //   }
+  // },{
+  //   name: 'PDF',
+  //   path: '/pdf',
+  //   component: PDF,
+  //   meta: {
+  //     isActive: false
+  //   }
+  // }
 ]
 
 export const modelRoute = initModelRoute

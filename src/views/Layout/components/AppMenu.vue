@@ -2,13 +2,13 @@
   <div class="menuList">
     <a-menu style="height:100%"
             :default-selected-keys="['0']"
-            :default-open-keys="['2']"
+            :default-open-keys="['/file-management']"
             theme="dark"
             mode="inline"
             @click="handleClick"
             :inline-collapsed="collapsed">
-      <!-- <template v-for="item in menuList" >
-        <a-menu-item v-if="!item.children" :key="item.path" :class="{'ant-menu-item-selected':item.meta.isActive}">
+      <template v-for="item in menuList" >
+        <a-menu-item v-if="!item.children" :key="item.path" :class="{'ant-menu-item-selected':isActive==item.path}">
           <router-link :to="item.path" style="display:flex;align-items:center">
             <a-icon style="font-size:20px" :type="item.meta.icon" />
             <span>{{item.name}}</span>
@@ -19,7 +19,7 @@
             <a-icon type="mail" /><span>{{ item.name }}</span>
           </span>
           <template v-for="i in item.children">
-            <a-menu-item v-if="!i.children" :key="i.path" :class="{'ant-menu-item-selected':item.meta.isActive}">
+            <a-menu-item v-if="!i.children" :key="i.path" :class="{'ant-menu-item-selected':isActive==i.path}">
               <router-link :to="i.path" style="display:flex;align-items:center">
                 <a-icon style="font-size:20px" :type="i.meta.icon" />
                 <span>{{i.name}}</span>
@@ -28,16 +28,16 @@
           </template>
         </a-sub-menu>
       </template>
-    </a-menu> -->
+    </a-menu>
 
 
-      <a-menu-item v-for="(item,index) in menuList" :key="index" :class="{'ant-menu-item-selected':item.meta.isActive}">
+      <!-- <a-menu-item v-for="(item,index) in menuList" :key="index" :class="{'ant-menu-item-selected':item.meta.isActive}">
         <router-link :to="item.path" style="display:flex;align-items:center">
           <a-icon style="font-size:20px" :type="item.meta.icon" />
           <span>{{item.name}}</span>
         </router-link>
       </a-menu-item>
-    </a-menu>
+    </a-menu> -->
 <!--    <div class="collapsed">-->
 <!--      <a-icon style="font-size:15px" type="left" />-->
 <!--    </div>-->
@@ -50,24 +50,29 @@
   export default {
     data () {
       return {
+        isActive:'/page',
         menuList: [...modelRoute],
         collapsed: false
       }
     },
     mounted () {
       let that = this;
-      this.menuList.map(item => {
-        if (that.$route.path.indexOf(item.path) > -1) {
-          item.meta.isActive = true
-          console.log(item)
-        }
-      });
-      console.log(this.menuList)
+      // this.menuList.map(item => {
+      //   if (that.$route.path.indexOf(item.path) > -1) {
+      //     item.meta.isActive = true
+      //     console.log(item)
+      //   }
+      // });
+      this.isActive = this.$route.path
+      console.log(this.$route.path)
     },
     methods: {
       handleClick(e) {
-        console.log(e)
-        console.log('click', e.key);
+        this.isActive = this.$route.path
+        // console.log(e)
+        // console.log('click', e.key);
+        console.log(this.$route.path)
+        //  return [this.$route.path]
         // this.menuList.map((item, index) => {
         //   console.log(item)
         //   if (item === e.key) {
@@ -76,13 +81,13 @@
         //     item.meta.isActive = false;
         //   }
         // })
-        this.menuList.map((item, index) => {
-          if (index === e.key) {
-            item.meta.isActive = true;
-          } else {
-            item.meta.isActive = false;
-          }
-        })
+        // this.menuList.map((item, index) => {
+        //   if (index === e.key) {
+        //     item.meta.isActive = true;
+        //   } else {
+        //     item.meta.isActive = false;
+        //   }
+        // })
       },
       toggleCollapsed() {
         this.collapsed = !this.collapsed;
