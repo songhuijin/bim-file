@@ -51,46 +51,40 @@
     data () {
       return {
         isActive:'/page',
+        openKeys:'',
         menuList: [...modelRoute],
         collapsed: false
       }
     },
     mounted () {
       let that = this;
-      // this.menuList.map(item => {
-      //   if (that.$route.path.indexOf(item.path) > -1) {
-      //     item.meta.isActive = true
-      //     console.log(item)
-      //   }
-      // });
       this.isActive = this.$route.path
-      console.log(this.$route.path)
     },
     methods: {
       handleClick(e) {
         this.isActive = this.$route.path
-        // console.log(e)
-        // console.log('click', e.key);
-        console.log(this.$route.path)
-        //  return [this.$route.path]
-        // this.menuList.map((item, index) => {
-        //   console.log(item)
-        //   if (item === e.key) {
-        //     item.meta.isActive = true;
-        //   } else {
-        //     item.meta.isActive = false;
-        //   }
-        // })
-        // this.menuList.map((item, index) => {
-        //   if (index === e.key) {
-        //     item.meta.isActive = true;
-        //   } else {
-        //     item.meta.isActive = false;
-        //   }
-        // })
+        // console.log(this.$route.path)
+        let adda = this.getOpenKeys(this.menuList,this.isActive)
+        console.log(adda)
       },
       toggleCollapsed() {
         this.collapsed = !this.collapsed;
+      },
+      getOpenKeys(data,path){
+        let that = this;
+        data.forEach(item=>{
+          if(item.children){
+            item.children.forEach(i=>{
+              if(i.path == path){
+                that.openKeys = item.path
+                console.log(item.path)
+                // return i.path;
+              }else{
+                that.getOpenKeys(item.children,path)
+              }
+            })
+          }
+        })
       }
     }
   }

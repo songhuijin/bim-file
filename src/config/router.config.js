@@ -6,6 +6,8 @@ import PDF from '../views/PDF'
 import Navisworks from '../views/Navisworks'
 // import Model from '../views/Layout/components/Model'
 import HomePage from '../views/pages/HomePage.vue'
+import Layout from '../views/Layout/Layout.vue'
+
 
 let initModelRoute = [
   {
@@ -20,8 +22,8 @@ let initModelRoute = [
   {
     name: '文件管理',
     path: '/file-management',
-    // component: HomePage,
-    redirect: '/last-open',
+    component: Layout,
+    // redirect: '/last-open',
     meta: {
       isActive: false,
       icon: "file"

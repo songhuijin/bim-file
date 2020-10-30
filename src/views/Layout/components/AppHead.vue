@@ -2,7 +2,7 @@
   <div>
     <div class="head">
       <div class="headLeft">
-        BIM文件管理
+        <!-- BIM文件管理 -->
       </div>
       <div class="headCenter">
         CICDI智慧施工管理平台
