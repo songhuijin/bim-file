@@ -11,7 +11,7 @@ const routes = [
     name: 'Layout',
     component: Layout,
     children: [ ...modelRoute ],
-    redirect: 'page'
+    redirect: 'home'
     // component: () => import(/* webpackChunkName: "about" */ "../views/About.vue")
   }
 ];

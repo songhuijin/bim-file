@@ -10,15 +10,15 @@ import Layout from '../views/Layout.vue'
 
 
 let initModelRoute = [
-  {
-    name: '首页',
-    path: '/page',
-    component: HomePage,
-    meta: {
-      isActive: false,
-      icon: "home"
-    }
-  },
+  // {
+  //   name: '首页',
+  //   path: '/page',
+  //   component: HomePage,
+  //   meta: {
+  //     isActive: false,
+  //     icon: "home"
+  //   }
+  // },
   {
     name: '文件管理',
     path: '/file-management',

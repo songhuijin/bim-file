@@ -85,6 +85,7 @@
       :width="400"
       :footer="null"
       @cancel="cancelEnjoy">
+      {{text}}
       <div style="display:flex;flex-direction:column;align-items:center;width:100%">
         <vue-qr :logoSrc="imageSrc"
                 :text="text"
@@ -212,7 +213,7 @@
             handleFileChange () {
                 let inputDOM = this.$refs.inputer;
                 let file = inputDOM.files[0];// 通过DOM取文件数据
-                console.log(file.type);
+                console.log(file);
                 //文件路径
                 let index= file.name.lastIndexOf(".");
                 //获取后缀
@@ -227,6 +228,7 @@
                 let totalSize = this.fileSize + size;
                 const isLt25M = totalSize < 25 * 1024 * 1024;
                 const isLt10M = size < 10 * 1024 * 1024
+                console.log(10 * 1024 * 1024-size)
                 if (!isLt10M) {
                     this.$message.error('单个文件大小必须小于10M！');
                 } else if(!isLt25M) {
