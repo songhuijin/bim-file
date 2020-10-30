@@ -349,7 +349,7 @@ export default {
     },
     loadData() {
       this.loading = true;
-      getAction(this.url.list + "?pid=" + this.queryParam.pid + "&type=2")
+      getAction(this.url.list + "?pid=" + this.queryParam.pid + "&type=2&pageSize=10000")
         .then(res => {
           if (res.success) {
             this.dataSource = res.result.records;

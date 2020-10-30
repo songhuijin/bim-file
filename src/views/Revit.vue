@@ -333,7 +333,7 @@ export default {
       this.loading = true;
       // console.log(getFormData(this.queryParam))
       getAction(
-        this.url.list + "?pid=" + this.queryParam.pid + "&type=0&pageSize=1000"
+        this.url.list + "?pid=" + this.queryParam.pid + "&type=0&pageSize=10000"
       )
         .then(res => {
           if (res.success) {

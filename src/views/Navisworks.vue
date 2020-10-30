@@ -269,7 +269,7 @@
             loadData() {
                 this.loading=true
                 // console.log(getFormData(this.queryParam))
-                getAction(this.url.list+'?pid='+this.queryParam.pid + "&type=1").then((res) => {
+                getAction(this.url.list+'?pid='+this.queryParam.pid + "&type=1&pageSize=10000").then((res) => {
                   if (res.success) {
                     this.dataSource = res.result.records
                   }

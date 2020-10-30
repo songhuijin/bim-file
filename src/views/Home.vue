@@ -152,6 +152,16 @@
                 let inputDOM = this.$refs.inputer;
                 let file = inputDOM.files[0];// 通过DOM取文件数据
                 console.log(file);
+                 //文件路径
+                let index= file.name.lastIndexOf(".");
+                //获取后缀
+                let fileType = file.name.substr(index+1);
+                //输出结果
+                console.log(fileType);
+                if(!(fileType.toLowerCase() == 'revit' || fileType.toLowerCase() == 'navisworks' || fileType.toLowerCase() == 'cad' || fileType.toLowerCase() == 'pdf')){
+                  this.$message.error('请上传revit/navisworks/cad/pdf文件！');
+                  return
+                }
                 let size = file.size;//计算文件的大小　
                 let totalSize = this.fileSize + size;
                 const isLt25M = totalSize < 25 * 1024 * 1024;
@@ -175,7 +185,16 @@
                             fileData.path = res.result.path;
                             fileData.userId = 0;
                             fileData.isFile = 1;
-                            fileData.type = 3;
+                            if(fileType.toLowerCase() == 'revit'){
+                              fileData.type = 0;
+                            }else if(fileType.toLowerCase() == 'navisworks'){
+                              fileData.type = 1;
+                            }else if(fileType.toLowerCase() == 'cad'){
+                              fileData.type = 2;
+                            }else if(fileType.toLowerCase() == 'pdf'){
+                              fileData.type = 3;
+                            }
+                            // fileData.type = 3;
                             postAction("/sys-file/add", fileData).then((response) => {
                                 if(response.success){
                                     this.$message.success(response.message);
@@ -193,7 +212,7 @@
             loadData() {
                 this.loading=true
                 // console.log(getFormData(this.queryParam))
-                getAction(this.url.list+'?pid='+this.queryParam.pid).then((res) => {
+                getAction(this.url.list+'?pid='+this.queryParam.pid+'&pageSize=10000').then((res) => {
                   if (res.success) {
                     this.dataSource = res.result.records
                   }
