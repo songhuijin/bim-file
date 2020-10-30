@@ -1,8 +1,7 @@
 <template>
   <div class="menuList">
     <a-menu style="height:100%"
-            :default-selected-keys="['0']"
-            :default-open-keys="['/file-management']"
+            :open-keys="this.openKeys.length ? this.openKeys :['/file-management']"
             theme="dark"
             mode="inline"
             @click="handleClick"
@@ -51,7 +50,7 @@
     data () {
       return {
         isActive:'/page',
-        openKeys:'',
+        openKeys:[],
         menuList: [...modelRoute],
         collapsed: false
       }
@@ -59,32 +58,35 @@
     mounted () {
       let that = this;
       this.isActive = this.$route.path
+      let keys = this.getOpenKeys(this.menuList,this.isActive)
+      this.openKeys =  keys == '' ? [] : [keys]
+      console.log(this.openKeys)
     },
     methods: {
       handleClick(e) {
         this.isActive = this.$route.path
-        // console.log(this.$route.path)
-        let adda = this.getOpenKeys(this.menuList,this.isActive)
-        console.log(adda)
+        let keys = this.getOpenKeys(this.menuList,this.isActive)
+        this.openKeys =  keys == '' ? [] : [keys]
+        console.log(this.openKeys)
       },
       toggleCollapsed() {
         this.collapsed = !this.collapsed;
       },
       getOpenKeys(data,path){
-        let that = this;
-        data.forEach(item=>{
-          if(item.children){
-            item.children.forEach(i=>{
-              if(i.path == path){
-                that.openKeys = item.path
-                console.log(item.path)
-                // return i.path;
-              }else{
-                that.getOpenKeys(item.children,path)
-              }
-            })
+        for(let i = 0; i<data.length; i++){
+          if(data[i].path == path){
+            return '';
           }
-        })
+          if(data[i].children){
+            for(let j = 0 ;j<data[i].children.length;j++){
+              if(data[i].children[j].path == path){
+                return data[i].path
+              }else{
+                this.getOpenKeys(data[i].children,path)
+              }
+            }
+          }
+        }
       }
     }
   }

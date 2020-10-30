@@ -6,7 +6,7 @@ import PDF from '../views/PDF'
 import Navisworks from '../views/Navisworks'
 // import Model from '../views/Layout/components/Model'
 import HomePage from '../views/pages/HomePage.vue'
-import Layout from '../views/Layout/Layout.vue'
+import Layout from '../views/Layout.vue'
 
 
 let initModelRoute = [
