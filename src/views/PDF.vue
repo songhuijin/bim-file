@@ -234,6 +234,7 @@
                 } else {
                     let formData = new FormData(); //new一个formData事件
                     formData.append("file", file); //将file属性添加到formData里
+                    console.log(formData)
                     postAction("/sys/common/upload", formData).then((res) => {
                         if (res.success) {
                             this.$message.success("上传成功！");

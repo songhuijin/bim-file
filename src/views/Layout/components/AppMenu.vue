@@ -98,12 +98,13 @@
 }
   .menuList {
     width: 200px;
-    height: calc(100% - 66px);
+    min-height: calc(100% - 66px);
     position: absolute;
     margin-top: 66px;
     z-index: 999;
     display: flex;
     flex-direction: column;
+    background: #001529;
   }
   .collapsed {
     width: 200px;

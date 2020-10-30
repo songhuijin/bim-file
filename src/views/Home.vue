@@ -43,8 +43,10 @@
           <a-popover trigger="hover" placement="bottomRight">
             <template slot="content">
               <div class="conItem" style="padding:15px 20px" @click="handleRename(record)">重命名</div>
+              <div v-if="record.isFile == '1'" class="conItem" style="padding:0 20px 15px" @click="downLoad(record)">下载</div>
+              <div v-if="record.isFile == '1'" class="conItem" style="padding:0 20px 15px" @click="handleEnjoy(record)">分享</div>
               <div class="conItem" style="padding:0 20px 15px" @click="handleDelete(record.id)">删除</div>
-              <div class="conItem" style="padding:0 20px 15px" @click="handleMove(record,index)">移动</div>
+              <!-- <div class="conItem" style="padding:0 20px 15px" @click="handleMove(record,index)">移动</div> -->
             </template>
             <span style='color:rgb(0,109,240);cursor:pointer;font-weight:600'>…</span>
           </a-popover>
@@ -62,21 +64,48 @@
       @cancel="handleCancel">
       <vue-pdf :src="path" :page="currentPage"></vue-pdf>
     </a-modal>
-  
+    <a-modal
+      title="图纸分享"
+      :visible="enjoy"
+      :maskClosable="false"
+      :width="400"
+      :footer="null"
+      @cancel="cancelEnjoy"
+    >
+      <div style="display:flex;flex-direction:column;align-items:center;width:100%">
+        <vue-qr
+          :logoSrc="imageSrc"
+          :text="text"
+          :size="236"
+          :margin="0"
+          :logoScale="60"
+        ></vue-qr>
+        <div style="display:flex;flex-direction:column;margin-top:20px;width: 300px;">
+          <span>我分享了图纸，点击查看：</span>
+          <a target="_blank" :href="text">{{text}}</a>
+        </div>
+      </div>
+    </a-modal>
+    <model ref="model"></model>
+    <drawing ref="drawing"></drawing>
   </div>
 </template>
 
 <script>
     import VuePdf from 'vue-pdf'
-    // import NewFolder from '@/views/Layout/components/NewFolder'
+    import VueQr from "vue-qr";
+    import Model from "./Layout/components/Model";
     import FileModal from '@/views/pages/components/FileModal'
+    import Drawing from "./Drawing";
     import { getAction, postAction,deleteAction,getFormData} from '@/api/manage'
     export default {
         name: "Home",
         components: {
             VuePdf,
-            // NewFolder,
-            FileModal
+            VueQr,
+            FileModal,
+            Model,
+            Drawing
         },
         data() {
             return {
@@ -128,10 +157,17 @@
                 clickObj: {},
                 clickId: '',
                 loading: false,
+                imageSrc: require("../assets/cicdi.png"),
+                text:'',
+                enjoy:false,
                 url: {
                     list: '/sys-file/list',
-                    delete:'/sys-file/delete'
-                }
+                    delete:'/sys-file/delete',
+                    download: "/sys/common/download/",
+                    baseUrl:'http://182.92.125.56:8083/'
+                },
+                visible:false,
+                showFileVisible:false,
             }
         },
         mounted() {
@@ -145,6 +181,27 @@
             }
         },
         methods: {
+            downLoad(record) {
+              getAction(this.url.download + record.id).then(res => {
+                let url = window.URL.createObjectURL(new Blob([res.data]));
+                let link = document.createElement("a");
+                link.style.display = "none";
+                link.href = url;
+                link.setAttribute("download", record.name);
+
+                document.body.appendChild(link);
+                console.log(res);
+
+                link.click();
+              });
+            },
+            handleEnjoy(record) {
+              this.text= this.url.baseUrl+record.path
+              this.enjoy = true;
+            },
+            cancelEnjoy() {
+              this.enjoy = false;
+            },
             choiceImg(){
                 this.$refs.inputer.dispatchEvent(new MouseEvent('click'));
             },
@@ -223,11 +280,29 @@
             handleCancel() {
                 this.show = false;
             },
+            showModel() {
+              this.visible = false;
+              this.$refs.model.visible = true;
+              this.$nextTick(() => {
+                this.$refs.model.loadModal();
+              });
+            },
+            showFile() {
+              this.showFileVisible = false;
+              this.$refs.drawing.visible = true;
+              this.$nextTick(() => {
+                this.$refs.drawing.loadDrawing();
+              });
+            },
             fileItems(record) {
                 if (record.isFile == 1) {
                     if(record.type == 3) {
                       this.path = "/jeecg-boot/" + record.path;
                       this.show = true;
+                    }else if(record.type == 0) {
+                      this.showModel();
+                    }else if(record.type == 2){
+                      this.showFile();
                     }
                 } else {
                     this.clickObj = record;

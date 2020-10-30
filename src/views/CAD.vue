@@ -116,12 +116,12 @@
       >
         <vue-qr
           :logoSrc="imageSrc"
-          text="http://172.16.12.51/cad.html"
+          :text="text"
           :size="236"
           :margin="0"
           :logoScale="60"
         ></vue-qr>
-        <div style="display:flex;flex-direction:column;margin-top:20px">
+        <div style="display:flex;flex-direction:column;margin-top:20px;width: 300px;">
           <span>我分享了图纸，点击查看：</span>
           <a target="_blank" :href="text">{{text}}</a>
         </div>

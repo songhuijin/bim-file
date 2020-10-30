@@ -1,5 +1,5 @@
 <template>
-  <div class="source" id="source" v-if="visible">
+  <div class="source" id="source" v-if="visible" style="height:100vh">
     <div class="buttons" v-if="isLoaded">
       <a-button type="primary" class="button" @click="generateViewCode">生成视点二维码</a-button>
 <!--      <a-button type="primary" class="button" @click="explosion">爆炸</a-button>-->

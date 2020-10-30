@@ -87,7 +87,7 @@
       @cancel="cancelEnjoy"
     >
       <div
-        style="display:flex;flex-direction:column;align-items:center;width:100%"
+        style="display:flex;flex-direction:column;align-items:center"
       >
         <vue-qr
           :logoSrc="imageSrc"
@@ -96,7 +96,7 @@
           :margin="0"
           :logoScale="36"
         ></vue-qr>
-        <div style="display:flex;flex-direction:column;margin-top:20px">
+        <div style="display:flex;flex-direction:column;margin-top:20px;width: 300px;">
           <span>我分享了模型，点击查看：</span>
           <a target="_blank" :href="text">{{text}}</a>
         </div>

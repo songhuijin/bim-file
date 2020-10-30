@@ -29,15 +29,15 @@ let initModelRoute = [
       icon: "file"
     },
     children:[
-      {
-        name: '最近打开',
-        path: '/last-open',
-        component: LastOpen,
-        meta: {
-          isActive: false,
-          icon: "clock-circle"
-        }
-      },
+      // {
+      //   name: '最近打开',
+      //   path: '/last-open',
+      //   component: LastOpen,
+      //   meta: {
+      //     isActive: false,
+      //     icon: "clock-circle"
+      //   }
+      // },
       {
         name: '全部文件',
         path: '/home',

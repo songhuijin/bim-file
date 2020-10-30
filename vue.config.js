@@ -11,7 +11,7 @@ module.exports = {
         proxy: {
             '/qr-code': {
                 // target: 'http://121.37.197.45:8080',  //接口域名
-                target: 'http://172.16.12.52:8080',  //接口域名
+                target: 'http://172.16.12.51:8080',  //接口域名
                 // target: 'http://172.16.174.15:8083',  //接口域名
                 ws: false,
                 changeOrigin: true,  //是否跨域
